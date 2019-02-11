@@ -24,8 +24,13 @@ describe('## User APIs', () => {
     email: 'test@email.io'
   };
 
+  const secondUser = {
+    username: 'testname2',
+    email: 'test@email.io'
+  };
+
   const userUpdate = {
-    username: 'testname2'
+    username: 'updatedname'
   };
 
   describe('# POST /api/users', () => {
@@ -110,7 +115,7 @@ describe('## User APIs', () => {
     });
   });
 
-  describe('# DELETE /api/users/', () => {
+  describe('# DELETE /api/users/userId', () => {
     it('should delete user', (done) => {
       request(app)
         .delete(`/api/users/${user._id}`)
@@ -119,6 +124,32 @@ describe('## User APIs', () => {
           expect(res.body.message).to.equal('User deleted successfully');
           expect(res.body.user.username).to.equal(userUpdate.username);
           expect(res.body.user.email).to.equal(user.email);
+          done();
+        })
+        .catch(done);
+    });
+  });
+
+  describe('# DELETE /api/users/', () => {
+    it('should create a test user', (done) => {
+      request(app)
+        .post('/api/users')
+        .send(secondUser)
+        .expect(httpStatus.CREATED)
+        .then((res) => {
+          expect(res.body.user.username).to.equal(secondUser.username);
+          expect(res.body.user.email).to.equal(secondUser.email);
+          done();
+        })
+        .catch(done);
+    });
+
+    it('should delete all users', (done) => {
+      request(app)
+        .delete('/api/users')
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.message).to.equal('1 user(s) deleted');
           done();
         })
         .catch(done);

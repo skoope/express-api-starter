@@ -108,4 +108,17 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-module.exports = { load, get, create, update, list, remove };
+/**
+ * Delete all users.
+ * @returns {User}
+ */
+function removeMany(req, res, next) {
+  User.deleteMany({})
+    .then(deletedUsers => res.json({
+      message: `${deletedUsers.deletedCount} user(s) deleted`
+    }))
+    .catch(e => next(e));
+}
+
+
+module.exports = { load, get, create, update, list, remove, removeMany };

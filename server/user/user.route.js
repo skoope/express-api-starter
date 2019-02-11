@@ -10,7 +10,10 @@ router.route('/')
   .get(userCtrl.list)
 
   /** POST /api/users - Create new user */
-  .post(validate(paramValidation.createUser), userCtrl.create);
+  .post(validate(paramValidation.createUser), userCtrl.create)
+
+  /** DELETE /api/users - Delete all users */
+  .delete(userCtrl.removeMany);
 
 router.route('/:userId')
   /** GET /api/users/:userId - Get user */
