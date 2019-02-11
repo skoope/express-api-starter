@@ -39,6 +39,17 @@ const UserSchema = new mongoose.Schema({
  * - validations
  * - virtuals
  */
+
+/**
+ * Pre save middlware for Hashing password before saving in db
+ * -----------
+ * 1) Because passwords are not hashed until the document is saved,
+ * be careful if you're interacting with documents that were not retrieved from the database,
+ * as any passwords will still be in cleartext.
+ * -----------
+ * 2) Mongoose middleware is not invoked on update() operations,
+ * so you must use a save() if you want to update user passwords.
+ */
 UserSchema.pre('save', function (next) {
   const user = this;
 
@@ -58,12 +69,6 @@ UserSchema.pre('save', function (next) {
       return next();
     });
   });
-});
-
-/**
- * Methods
- */
-UserSchema.method({
 });
 
 /**
