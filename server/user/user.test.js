@@ -24,6 +24,10 @@ describe('## User APIs', () => {
     email: 'test@email.io'
   };
 
+  const userUpdate = {
+    username: 'testname2'
+  };
+
   describe('# POST /api/users', () => {
     it('should create a new user', (done) => {
       request(app)
@@ -65,21 +69,21 @@ describe('## User APIs', () => {
     });
   });
 
-  // describe('# PUT /api/users/:userId', () => {
-  //   it('should update user details', (done) => {
-  //     user.username = 'KK';
-  //     request(app)
-  //       .put(`/api/users/${user._id}`)
-  //       .send(user)
-  //       .expect(httpStatus.OK)
-  //       .then((res) => {
-  //         expect(res.body.username).to.equal('KK');
-  //         expect(res.body.mobileNumber).to.equal(user.mobileNumber);
-  //         done();
-  //       })
-  //       .catch(done);
-  //   });
-  // });
+  describe('# PUT /api/users/:userId', () => {
+    it('should update user details', (done) => {
+      request(app)
+        .put(`/api/users/${user._id}`)
+        .send(userUpdate)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.message).to.equal('User updated successfully');
+          expect(res.body.user.username).to.equal(userUpdate.username);
+          expect(res.body.user.email).to.equal(user.email);
+          done();
+        })
+        .catch(done);
+    });
+  });
 
   // describe('# GET /api/users/', () => {
   //   it('should get all users', (done) => {
@@ -112,7 +116,7 @@ describe('## User APIs', () => {
         .delete(`/api/users/${user._id}`)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.username).to.equal(user.username);
+          expect(res.body.username).to.equal(userUpdate.username);
           expect(res.body.email).to.equal(user.email);
           done();
         })
