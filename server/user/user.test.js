@@ -85,30 +85,30 @@ describe('## User APIs', () => {
     });
   });
 
-  // describe('# GET /api/users/', () => {
-  //   it('should get all users', (done) => {
-  //     request(app)
-  //       .get('/api/users')
-  //       .expect(httpStatus.OK)
-  //       .then((res) => {
-  //         expect(res.body).to.be.an('array');
-  //         done();
-  //       })
-  //       .catch(done);
-  //   });
+  describe('# GET /api/users/', () => {
+    it('should get all users', (done) => {
+      request(app)
+        .get('/api/users')
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.users).to.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
 
-  //   it('should get all users (with limit and skip)', (done) => {
-  //     request(app)
-  //       .get('/api/users')
-  //       .query({ limit: 10, skip: 1 })
-  //       .expect(httpStatus.OK)
-  //       .then((res) => {
-  //         expect(res.body).to.be.an('array');
-  //         done();
-  //       })
-  //       .catch(done);
-  //   });
-  // });
+    it('should get all users (with limit and skip)', (done) => {
+      request(app)
+        .get('/api/users')
+        .query({ limit: 10, skip: 1 })
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.users).to.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+  });
 
   describe('# DELETE /api/users/', () => {
     it('should delete user', (done) => {
