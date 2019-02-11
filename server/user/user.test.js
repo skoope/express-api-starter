@@ -116,8 +116,9 @@ describe('## User APIs', () => {
         .delete(`/api/users/${user._id}`)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.username).to.equal(userUpdate.username);
-          expect(res.body.email).to.equal(user.email);
+          expect(res.body.message).to.equal('User deleted successfully');
+          expect(res.body.user.username).to.equal(userUpdate.username);
+          expect(res.body.user.email).to.equal(user.email);
           done();
         })
         .catch(done);

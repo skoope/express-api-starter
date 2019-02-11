@@ -99,7 +99,10 @@ function list(req, res, next) {
 function remove(req, res, next) {
   const user = req.user;
   user.remove()
-    .then(deletedUser => res.json(deletedUser))
+    .then(deletedUser => res.json({
+      message: 'User deleted successfully',
+      user: deletedUser
+    }))
     .catch(e => next(e));
 }
 
