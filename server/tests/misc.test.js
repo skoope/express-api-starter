@@ -51,7 +51,7 @@ describe('## Misc', () => {
       request(app)
         .post('/api/users')
         .send({
-          mobileNumber: '1234567890'
+          email: 'test@email.io'
         })
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {
