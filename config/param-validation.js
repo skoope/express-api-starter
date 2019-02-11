@@ -5,7 +5,8 @@ module.exports = {
   createUser: {
     body: {
       username: Joi.string().min(2).max(15).required(),
-      email: Joi.string().email().required()
+      email: Joi.string().email().required(),
+      password: Joi.string().required()
     }
   },
 

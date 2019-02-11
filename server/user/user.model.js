@@ -1,7 +1,14 @@
+/* eslint-disable consistent-return */
+/* eslint-disable func-names */
+/* eslint-disable prefer-arrow-callback */
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
+
+
+const SALT_WORK_FACTOR = 10;
 
 /**
  * User Schema
@@ -15,6 +22,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
+  },
+  password: {
+    type: String,
+    required: true
   },
   createdAt: {
     type: Date,
@@ -30,9 +41,34 @@ const UserSchema = new mongoose.Schema({
  */
 
 /**
- * Methods
+ * Pre save middlware for Hashing password before saving in db
+ * -----------
+ * 1) Because passwords are not hashed until the document is saved,
+ * be careful if you're interacting with documents that were not retrieved from the database,
+ * as any passwords will still be in cleartext.
+ * -----------
+ * 2) Mongoose middleware is not invoked on update() operations,
+ * so you must use a save() if you want to update user passwords.
  */
-UserSchema.method({
+UserSchema.pre('save', function (next) {
+  const user = this;
+
+  // only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
+
+    // generate a salt
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    if (err) return next(err);
+
+      // hash the password using our new salt
+    bcrypt.hash(user.password, salt, function (error, hash) {
+      if (error) return next(error);
+
+        // override the cleartext password with the hashed one
+      user.password = hash;
+      return next();
+    });
+  });
 });
 
 /**
