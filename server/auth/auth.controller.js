@@ -2,35 +2,51 @@ const jwt = require('jsonwebtoken');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 const config = require('../../config/config');
-
-// sample user, used for authentication
-const user = {
-  username: 'react',
-  password: 'express'
-};
+const User = require('../user/user.model');
 
 /**
- * Returns jwt token if valid username and password is provided
+ * Returns jwt token if valid email and password are provided
  * @param req
  * @param res
  * @param next
  * @returns {*}
  */
 function login(req, res, next) {
-  // Ideally you'll fetch this from the db
-  // Idea here was to show how jwt works with simplicity
-  if (req.body.username === user.username && req.body.password === user.password) {
-    const token = jwt.sign({
-      username: user.username
-    }, config.jwtSecret);
-    return res.json({
-      token,
-      username: user.username
-    });
-  }
+  // eslint-disable-next-line consistent-return
+  User.findOne({ email: req.body.email }, (userSearchError, returnedUser) => {
+  // in case of mongosearch error
+    if (userSearchError) return next(userSearchError);
 
-  const err = new APIError('Authentication error', httpStatus.UNAUTHORIZED, true);
-  return next(err);
+  // in case user not found in db
+    if (!returnedUser) {
+      const apiError = new APIError('Authentication error, wrong credentials', httpStatus.UNAUTHORIZED, true);
+      return next(apiError);
+    }
+
+  // in case user found, decrypt and compare password
+    returnedUser.comparePassword(req.body.password, (compareError, isMatch) => {
+      // in case of bcrypt error
+      if (compareError) return next(compareError);
+
+      // user found & password matches
+      if (isMatch) {
+        const token = jwt.sign({
+          _id: returnedUser._id,
+          email: returnedUser.email,
+        }, config.jwtSecret, {
+          expiresIn: '60 days'
+        });
+        return res.json({
+          user: returnedUser,
+          token
+        });
+      }
+
+      // in case of wrong password
+      const apiError = new APIError('Authentication error, wrong credentials', httpStatus.UNAUTHORIZED, true);
+      return next(apiError);
+    });
+  });
 }
 
 /**
