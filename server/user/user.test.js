@@ -21,12 +21,14 @@ after((done) => {
 describe('## User APIs', () => {
   let user = {
     username: 'testname',
-    email: 'test@email.io'
+    email: 'test@email.io',
+    password: 'testpass123'
   };
 
   const secondUser = {
     username: 'testname2',
-    email: 'test@email.io'
+    email: 'test@email.io',
+    password: 'testpass1234'
   };
 
   const userUpdate = {
@@ -42,6 +44,7 @@ describe('## User APIs', () => {
         .then((res) => {
           expect(res.body.user.username).to.equal(user.username);
           expect(res.body.user.email).to.equal(user.email);
+          expect(res.body.user.password).to.not.equal(user.email);
           user = res.body.user;
           done();
         })
@@ -57,6 +60,7 @@ describe('## User APIs', () => {
         .then((res) => {
           expect(res.body.username).to.equal(user.username);
           expect(res.body.email).to.equal(user.email);
+          expect(res.body.password).to.not.equal(user.email);
           done();
         })
         .catch(done);
