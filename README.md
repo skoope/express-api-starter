@@ -43,6 +43,11 @@ Install project dependencies:
 yarn
 ```
 
+Set environment (vars):
+```sh
+cp .env.example .env
+```
+
 Start Docker MongoDB :
 
 * using docker Container :
