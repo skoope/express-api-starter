@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "start:watch": "nodemon index.js",
     "start:debug": "cross-env DEBUG=express-api-starter:* yarn start",
     "lint": "esw *.js server config --color",
     "lint:watch": "yarn lint -- --watch",
@@ -73,6 +74,7 @@
     "husky": "0.14.3",
     "istanbul": "1.1.0-alpha.1",
     "mocha": "3.5.0",
+    "nodemon": "false1.18.10",
     "supertest": "3.0.0",
     "supertest-as-promised": "4.0.2",
     "validate-commit-msg": "^2.14.0"
