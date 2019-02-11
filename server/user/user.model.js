@@ -71,6 +71,17 @@ UserSchema.pre('save', function (next) {
   });
 });
 
+
+/**
+ * UserSchema method, to compare crypted password with binary one
+ */
+UserSchema.methods.comparePassword = function (candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+    if (err) return cb(err);
+    return cb(null, isMatch);
+  });
+};
+
 /**
  * Statics
  */
