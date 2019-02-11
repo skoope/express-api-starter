@@ -1,4 +1,5 @@
 const httpStatus = require('http-status');
+const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 const User = require('./user.model');
@@ -63,16 +64,18 @@ function create(req, res, next) {
 /**
  * Update existing user
  * @property {string} req.body.username - The username of user.
- * @property {string} req.body.mobileNumber - The mobileNumber of user.
+ * @property {string} req.body.email - The email of user.
  * @returns {User}
  */
 function update(req, res, next) {
-  const user = req.user;
-  user.username = req.body.username;
-  user.mobileNumber = req.body.mobileNumber;
+  const existingUser = req.user;
+  const updatedUser = _.merge(existingUser, req.body);
 
-  user.save()
-    .then(savedUser => res.json(savedUser))
+  updatedUser.save()
+    .then(savedUser => res.json({
+      message: 'User updated successfully',
+      user: savedUser
+    }))
     .catch(e => next(e));
 }
 

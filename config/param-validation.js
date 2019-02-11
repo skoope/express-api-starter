@@ -9,11 +9,11 @@ module.exports = {
     }
   },
 
-  // UPDATE /api/users/:userId
+  // PUT /api/users/:userId
   updateUser: {
     body: {
-      username: Joi.string().required(),
-      mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
+      username: Joi.string().min(2).max(15),
+      email: Joi.string().email()
     },
     params: {
       userId: Joi.string().hex().required()
