@@ -1,4 +1,8 @@
+const httpStatus = require('http-status');
+const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
 const User = require('./user.model');
+const APIError = require('../helpers/APIError');
 
 /**
  * Load user and append to req.
@@ -23,18 +27,37 @@ function get(req, res) {
 /**
  * Create new user
  * @property {string} req.body.username - The username of user.
- * @property {string} req.body.mobileNumber - The mobileNumber of user.
+ * @property {string} req.body.email - The email of user.
  * @returns {User}
  */
 function create(req, res, next) {
-  const user = new User({
-    username: req.body.username,
-    mobileNumber: req.body.mobileNumber
-  });
+  User.findOne({ email: req.body.email }, (userSearchError, returnedUser) => {
+    if (userSearchError) return next(userSearchError);
 
-  user.save()
-    .then(savedUser => res.json(savedUser))
-    .catch(e => next(e));
+    if (returnedUser) {
+      const apiError = new APIError('User already exists', httpStatus.CONFLICT, true);
+      return next(apiError);
+    }
+
+    // instanciate new mongoose User
+    const user = new User(req.body);
+
+    // create jwt token based on user email and id with an expiration time of 60days
+    const token = jwt.sign({
+      _id: user._id,
+      email: user.email
+    }, config.jwtSecret, {
+      expiresIn: '60 days'
+    });
+
+    return user.save()
+      .then(savedUser => res.status(201).json({
+        message: 'User created successfully',
+        user: savedUser,
+        token
+      }))
+      .catch(e => next(e));
+  });
 }
 
 /**
