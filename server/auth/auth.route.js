@@ -11,9 +11,12 @@ const router = express.Router(); // eslint-disable-line new-cap
 router.route('/login')
   .post(validate(paramValidation.login), authCtrl.login);
 
-/** GET /api/auth/random-number - Protected route,
- * needs token returned by the above as header. Authorization: Bearer {token} */
-router.route('/random-number')
-  .get(expressJwt({ secret: config.jwtSecret }), authCtrl.getRandomNumber);
+/** GET /api/auth/test - Testing route, Protected with token and Role validation,
+ * needs token returned by the above as header. Authorization: Bearer {token}
+ * needs token data to contain role: USER
+ * return success message if correct token provided
+ * */
+router.route('/test')
+  .get(expressJwt({ secret: config.jwtSecret }), authCtrl.getTestMessage);
 
 module.exports = router;

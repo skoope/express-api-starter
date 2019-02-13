@@ -50,17 +50,18 @@ function login(req, res, next) {
 }
 
 /**
- * This is a protected route. Will return random number only if jwt token is provided in header.
+ * This is a protected route. Will return success message
+ * only if jwt token is provided in header with role: USER
  * @param req
  * @param res
  * @returns {*}
  */
-function getRandomNumber(req, res) {
+function getTestMessage(req, res) {
   // req.user is assigned by jwt middleware if valid token is provided
   return res.json({
     user: req.user,
-    num: Math.random() * 100
+    message: 'Success'
   });
 }
 
-module.exports = { login, getRandomNumber };
+module.exports = { login, getTestMessage };
