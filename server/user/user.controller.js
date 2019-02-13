@@ -46,7 +46,7 @@ function create(req, res, next) {
     // create jwt token based on user email and id with an expiration time of 60days
     const token = jwt.sign({
       _id: user._id,
-      email: user.email
+      role: user.role
     }, config.jwtSecret, {
       expiresIn: '60 days'
     });
