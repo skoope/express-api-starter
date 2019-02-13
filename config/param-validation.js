@@ -5,6 +5,7 @@ module.exports = {
   createUser: {
     body: {
       username: Joi.string().min(2).max(15).required(),
+      role: Joi.strict().valid('USER', 'ADMIN'),
       email: Joi.string().email().required(),
       password: Joi.string().required()
     }
