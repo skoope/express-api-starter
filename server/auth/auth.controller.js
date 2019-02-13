@@ -32,7 +32,7 @@ function login(req, res, next) {
       if (isMatch) {
         const token = jwt.sign({
           _id: returnedUser._id,
-          email: returnedUser.email,
+          role: returnedUser.role,
         }, config.jwtSecret, {
           expiresIn: '60 days'
         });
