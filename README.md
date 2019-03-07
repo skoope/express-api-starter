@@ -1,4 +1,4 @@
-# Express & mongoose REST API with automated tests and code coverage [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/SkopeTN/express-api-starter)
+# Express & mongoose REST API with automated tests, code coverage [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/SkopeTN/express-api-starter)
 
 ## Overview
 
@@ -10,6 +10,7 @@ Heavily inspired from [KunalKapadia - Boilerplate skeleton](https://github.com/K
 
 | Feature                                | Summary                                                                                                                                                                                                                                                     |
 |----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Quick scaffolding               	 	 | Create controllers, models, routes, features and their tests right from the CLI! |
 | Authentication via JsonWebToken                  	 	 | Supports authentication using [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken).  |
 | Roles validation                  	 	 | Specify one or a list of allowed roles to access a certain route via role-validation middleware |
 | Code Linting               			 | JavaScript code linting is done using [ESLint](http://eslint.org) - a pluggable linter tool for identifying and reporting on patterns in JavaScript. Uses ESLint with [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb), which tries to follow the Airbnb JavaScript style guide.                                                                                                |
@@ -111,6 +112,20 @@ yarn lint:watch
 
 In production you need to make sure your server is always up so you should ideally use any of the process manager recommended [here](http://expressjs.com/en/advanced/pm.html).
 We recommend [pm2](http://pm2.keymetrics.io/) as it has several useful features like it can be configured to auto-start your services if system is rebooted.
+
+## Scaffolding
+
+You can easily scaffold controllers, models, routes, features and their tests using :
+
+```
+yarn generate
+```
+
+--- or ---
+
+```
+yarn g
+```
 
 ## Logging
 

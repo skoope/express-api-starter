@@ -1,0 +1,102 @@
+const _ = require('lodash');
+const {{pascalCase generatedItemName}} = require('../models/{{camelCase generatedItemName}}.model');
+
+/**
+ * Load {{camelCase generatedItemName}} and append to req.
+ */
+function load(req, res, next, id) {
+  {{pascalCase generatedItemName}}.get(id)
+    .then(({{camelCase generatedItemName}}) => {
+      req.{{camelCase generatedItemName}} = {{camelCase generatedItemName}}; // eslint-disable-line no-param-reassign
+      return next();
+    })
+    .catch(e => next(e));
+}
+
+/**
+ * Get {{camelCase generatedItemName}}
+ */
+function get(req, res) {
+  return res.json(req.{{camelCase generatedItemName}});
+}
+
+/**
+ * Create new {{camelCase generatedItemName}}
+ */
+function create(req, res, next) {
+  // instanciate new mongoose {{pascalCase generatedItemName}}
+  const {{camelCase generatedItemName}} = new {{pascalCase generatedItemName}}(req.body);
+  return {{camelCase generatedItemName}}.save()
+    .then(saved{{pascalCase generatedItemName}} => res.status(201).json({
+      message: '{{pascalCase generatedItemName}} created successfully',
+      {{camelCase generatedItemName}}: saved{{pascalCase generatedItemName}}
+    }))
+    .catch(e => next(e));
+}
+
+/**
+ * Update existing {{camelCase generatedItemName}}
+ */
+function update(req, res, next) {
+  const existing{{pascalCase generatedItemName}} = req.{{camelCase generatedItemName}};
+  const updated{{pascalCase generatedItemName}} = _.merge(existing{{pascalCase generatedItemName}}, req.body);
+
+  updated{{pascalCase generatedItemName}}.save()
+    .then(saved{{pascalCase generatedItemName}} => res.json({
+      message: '{{pascalCase generatedItemName}} updated successfully',
+      {{camelCase generatedItemName}}: saved{{pascalCase generatedItemName}}
+    }))
+    .catch(e => next(e));
+}
+
+/**
+ * Get {{camelCase generatedItemName}} list.
+ */
+function list(req, res, next) {
+  const {
+    limit = 50, skip = 0
+  } = req.query;
+  {{pascalCase generatedItemName}}.list({
+    limit,
+    skip
+  })
+    .then(returned{{pascalCase generatedItemName}} => res.json({
+      {{camelCase generatedItemName}}s: returned{{pascalCase generatedItemName}}
+    }))
+    .catch(e => next(e));
+}
+
+/**
+ * Delete {{camelCase generatedItemName}}.
+ */
+function remove(req, res, next) {
+  const {{camelCase generatedItemName}} = req.{{camelCase generatedItemName}};
+  {{camelCase generatedItemName}}.remove()
+    .then(deleted{{pascalCase generatedItemName}} => res.json({
+      message: '{{pascalCase generatedItemName}} deleted successfully',
+      {{camelCase generatedItemName}}: deleted{{pascalCase generatedItemName}}
+    }))
+    .catch(e => next(e));
+}
+
+/**
+ * Delete all {{camelCase generatedItemName}}s.
+ */
+function removeMany(req, res, next) {
+  {{pascalCase generatedItemName}}.deleteMany({})
+    .then(deleted{{pascalCase generatedItemName}}s => res.json({
+      message: `${deleted{{pascalCase generatedItemName}}s.deletedCount} {{camelCase generatedItemName}}(s) deleted`
+    }))
+    .catch(e => next(e));
+}
+
+
+module.exports = {
+  load,
+  get,
+  create,
+  update,
+  list,
+  remove,
+  removeMany
+};

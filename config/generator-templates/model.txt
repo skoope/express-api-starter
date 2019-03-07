@@ -1,0 +1,63 @@
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+const httpStatus = require('http-status');
+const APIError = require('../helpers/APIError');
+
+/**
+ * {{pascalCase generatedItemName}} Schema
+ */
+const {{pascalCase generatedItemName}}Schema = new mongoose.Schema({
+ // Add your Schema attributes
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+/**
+ * Add your
+ * - pre-save hooks
+ * - validations
+ * - virtuals
+ */
+
+/**
+ * Statics
+ */
+{{pascalCase generatedItemName}}Schema.statics = {
+  /**
+   * Get {{camelCase generatedItemName}}
+   * @param {ObjectId} id - The objectId of {{camelCase generatedItemName}}.
+   * @returns {Promise<{{pascalCase generatedItemName}}, APIError>}
+   */
+  get(id) {
+    return this.findById(id)
+      .exec()
+      .then(({{camelCase generatedItemName}}) => {
+        if ({{camelCase generatedItemName}}) {
+          return {{camelCase generatedItemName}};
+        }
+        const err = new APIError('No such {{camelCase generatedItemName}} exists!', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
+      });
+  },
+
+  /**
+   * List {{camelCase generatedItemName}}s in descending order of 'createdAt' timestamp.
+   * @param {number} skip - Number of {{camelCase generatedItemName}}s to be skipped.
+   * @param {number} limit - Limit number of {{camelCase generatedItemName}}s to be returned.
+   * @returns {Promise<{{pascalCase generatedItemName}}[]>}
+   */
+  list({ skip = 0, limit = 50 } = {}) {
+    return this.find()
+      .sort({ createdAt: -1 })
+      .skip(+skip)
+      .limit(+limit)
+      .exec();
+  }
+};
+
+/**
+ * @typedef {{pascalCase generatedItemName}}
+ */
+module.exports = mongoose.model('{{pascalCase generatedItemName}}', {{pascalCase generatedItemName}}Schema);
