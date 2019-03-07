@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
-const User = require('./user.model');
+const User = require('../models/user.model');
 const APIError = require('../helpers/APIError');
 
 /**

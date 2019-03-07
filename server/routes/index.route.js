@@ -1,9 +1,9 @@
 const express = require('express');
 const url = require('url');
-const userRoutes = require('./server/user/user.route');
-const authRoutes = require('./server/auth/auth.route');
-const config = require('./config/config');
-const pjson = require('./package.json');
+const userRoutes = require('./user.route');
+const authRoutes = require('./auth.route');
+const config = require('../../config/config');
+const pjson = require('../../package.json');
 
 const router = express.Router(); // eslint-disable-line new-cap
 

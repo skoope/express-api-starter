@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const APIError = require('./APIError');
+const APIError = require('../../helpers/APIError');
 const httpStatus = require('http-status');
 
 /**
