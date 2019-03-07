@@ -61,7 +61,8 @@ module.exports = (plop) => {
         case 'model':
           actions = actions.concat([{
             type: 'add',
-            path: 'server/models/{{kebabCase generatedItemName}}.model.js'
+            path: 'server/models/{{kebabCase generatedItemName}}.model.js',
+            templateFile: 'config/generator-templates/model.txt',
           }]);
           break;
 
