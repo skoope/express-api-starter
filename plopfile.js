@@ -69,7 +69,8 @@ module.exports = (plop) => {
         case 'route':
           actions = actions.concat([{
             type: 'add',
-            path: 'server/routes/{{kebabCase generatedItemName}}.route.js'
+            path: 'server/routes/{{kebabCase generatedItemName}}.route.js',
+            templateFile: 'config/generator-templates/route.txt',
           }]);
           break;
 
@@ -88,11 +89,13 @@ module.exports = (plop) => {
           },
           {
             type: 'add',
-            path: 'server/models/{{kebabCase generatedItemName}}.model.js'
+            path: 'server/models/{{kebabCase generatedItemName}}.model.js',
+            templateFile: 'config/generator-templates/model.txt',
           },
           {
             type: 'add',
-            path: 'server/routes/{{kebabCase generatedItemName}}.route.js'
+            path: 'server/routes/{{kebabCase generatedItemName}}.route.js',
+            templateFile: 'config/generator-templates/model.txt',
           },
           {
             type: 'add',

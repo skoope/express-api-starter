@@ -1,0 +1,31 @@
+const express = require('express');
+const validate = require('express-validation');
+const paramValidation = require('../../config/param-validation');
+const {{camelCase generatedItemName}}Ctrl = require('../controllers/{{camelCase generatedItemName}}.controller');
+
+const router = express.Router(); // eslint-disable-line new-cap
+
+router.route('/')
+  /** GET /api/{{camelCase generatedItemName}}s - Get list of {{camelCase generatedItemName}}s */
+  .get({{camelCase generatedItemName}}Ctrl.list)
+
+  /** POST /api/{{camelCase generatedItemName}}s - Create new {{camelCase generatedItemName}} */
+  .post(validate(paramValidation.create{{pascalCase generatedItemName}}), {{camelCase generatedItemName}}Ctrl.create)
+
+  /** DELETE /api/{{camelCase generatedItemName}}s - Delete all {{camelCase generatedItemName}}s */
+  .delete({{camelCase generatedItemName}}Ctrl.removeMany);
+
+router.route('/:{{camelCase generatedItemName}}Id')
+  /** GET /api/{{camelCase generatedItemName}}s/:{{camelCase generatedItemName}}Id - Get {{camelCase generatedItemName}} */
+  .get({{camelCase generatedItemName}}Ctrl.get)
+
+  /** PUT /api/{{camelCase generatedItemName}}s/:{{camelCase generatedItemName}}Id - Update {{camelCase generatedItemName}} */
+  .put(validate(paramValidation.update{{pascalCase generatedItemName}}), {{camelCase generatedItemName}}Ctrl.update)
+
+  /** DELETE /api/{{camelCase generatedItemName}}s/:{{camelCase generatedItemName}}Id - Delete {{camelCase generatedItemName}} */
+  .delete({{camelCase generatedItemName}}Ctrl.remove);
+
+/** Load {{camelCase generatedItemName}} when API with {{camelCase generatedItemName}}Id route parameter is hit */
+router.param('{{camelCase generatedItemName}}Id', {{camelCase generatedItemName}}Ctrl.load);
+
+module.exports = router;
