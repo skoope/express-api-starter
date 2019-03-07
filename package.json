@@ -16,6 +16,7 @@
     "start:debug": "cross-env DEBUG=express-api-starter:* yarn start",
     "lint": "esw *.js server config --color",
     "lint:watch": "yarn lint -- --watch",
+    "plop": "plop",
     "precommit": "yarn lint",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --ui bdd --reporter spec --colors server --recursive",
     "test:watch": "yarn test -- --watch",
@@ -76,6 +77,7 @@
     "istanbul": "1.1.0-alpha.1",
     "mocha": "3.5.0",
     "nodemon": "false1.18.10",
+    "plop": "false2.3.0",
     "supertest": "3.0.0",
     "supertest-as-promised": "4.0.2",
     "validate-commit-msg": "^2.14.0"
