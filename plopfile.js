@@ -54,46 +54,46 @@ module.exports = (plop) => {
         case 'controller':
           actions = actions.concat([{
             type: 'add',
-            path: 'server/controllers/{{generatedItemName}}.controller.js'
+            path: 'server/controllers/{{kebabCase generatedItemName}}.controller.js'
           }]);
           break;
         case 'model':
           actions = actions.concat([{
             type: 'add',
-            path: 'server/models/{{generatedItemName}}.model.js'
+            path: 'server/models/{{kebabCase generatedItemName}}.model.js'
           }]);
           break;
 
         case 'route':
           actions = actions.concat([{
             type: 'add',
-            path: 'server/routes/{{generatedItemName}}.route.js'
+            path: 'server/routes/{{kebabCase generatedItemName}}.route.js'
           }]);
           break;
 
         case 'test':
           actions = actions.concat([{
             type: 'add',
-            path: 'server/tests/{{generatedItemName}}.test.js'
+            path: 'server/tests/{{kebabCase generatedItemName}}.test.js'
           }]);
           break;
 
         case 'feature':
           actions = actions.concat([{
             type: 'add',
-            path: 'server/controllers/{{generatedItemName}}.controller.js'
+            path: 'server/controllers/{{kebabCase generatedItemName}}.controller.js'
           },
           {
             type: 'add',
-            path: 'server/models/{{generatedItemName}}.model.js'
+            path: 'server/models/{{kebabCase generatedItemName}}.model.js'
           },
           {
             type: 'add',
-            path: 'server/routes/{{generatedItemName}}.route.js'
+            path: 'server/routes/{{kebabCase generatedItemName}}.route.js'
           },
           {
             type: 'add',
-            path: 'server/tests/{{generatedItemName}}.test.js'
+            path: 'server/tests/{{kebabCase generatedItemName}}.test.js'
           }
           ]);
           break;
