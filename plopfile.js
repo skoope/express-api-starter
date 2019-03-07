@@ -54,7 +54,8 @@ module.exports = (plop) => {
         case 'controller':
           actions = actions.concat([{
             type: 'add',
-            path: 'server/controllers/{{kebabCase generatedItemName}}.controller.js'
+            path: 'server/controllers/{{kebabCase generatedItemName}}.controller.js',
+            templateFile: 'config/generator-templates/controller.txt',
           }]);
           break;
         case 'model':
@@ -81,7 +82,8 @@ module.exports = (plop) => {
         case 'feature':
           actions = actions.concat([{
             type: 'add',
-            path: 'server/controllers/{{kebabCase generatedItemName}}.controller.js'
+            path: 'server/controllers/{{kebabCase generatedItemName}}.controller.js',
+            templateFile: 'config/generator-templates/controller.txt',
           },
           {
             type: 'add',
